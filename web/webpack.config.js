@@ -8,6 +8,8 @@ const babelLoaderConfiguration = {
   // Add every directory that needs to be compiled by Babel during the build.
   include: [
     path.resolve(appDirectory, 'web/index.web.js'),
+    path.resolve(appDirectory, 'service-worker.js'),
+    path.resolve(appDirectory, 'serviceWorkerRegistration.js'),
     path.resolve(appDirectory, 'public'),
     path.resolve(appDirectory, 'App.tsx'),
     path.resolve(appDirectory, 'src'),
