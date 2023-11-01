@@ -1,5 +1,5 @@
 import {AppRegistry} from 'react-native';
-import * as serviceWorkerRegistration from '../serviceWorkerRegistration';
+import registerServiceWorker from './serviceWorkerRegistration';
 import {name as appName} from '../app.json';
 import App from '../App';
 
@@ -9,4 +9,7 @@ AppRegistry.runApplication(appName, {
   rootTag: document.getElementById('root'),
 });
 
-serviceWorkerRegistration.register();
+//  WORKBOX throws warning in watch mode
+// if (process.env.NODE_ENV === 'production') {
+registerServiceWorker();
+// }

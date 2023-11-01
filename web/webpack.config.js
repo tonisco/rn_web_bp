@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const appDirectory = path.resolve(__dirname, '../');
 
@@ -53,6 +55,33 @@ const jsonLoaderConfiguration = {
   },
 };
 
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: path.join(appDirectory, 'web/index.html'),
+  }),
+  new CopyPlugin({
+    patterns: [
+      {from: './public/favicon.ico', to: ''},
+      {from: './public/manifest.json', to: ''},
+      {from: './public/logo192.png', to: ''},
+      {from: './public/logo512.png', to: ''},
+    ],
+  }),
+  new WorkboxWebpackPlugin.InjectManifest({
+    swSrc: './service-worker.js',
+    swDest: './sw.js',
+  }),
+];
+
+// if (process.env.NODE_ENV === 'production') {
+//   plugins.push(
+//     new WorkboxWebpackPlugin.InjectManifest({
+//       swSrc: './service-worker.js',
+//       swDest: './sw.js',
+//     }),
+//   );
+// }
+
 module.exports = {
   entry: {
     app: path.join(appDirectory, 'web/index.web.js'),
@@ -80,9 +109,5 @@ module.exports = {
       jsonLoaderConfiguration,
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(appDirectory, 'web/index.html'),
-    }),
-  ],
+  plugins,
 };
