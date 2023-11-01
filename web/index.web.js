@@ -9,7 +9,7 @@ AppRegistry.runApplication(appName, {
   rootTag: document.getElementById('root'),
 });
 
-//  WORKBOX throws warning in watch mode
-// if (process.env.NODE_ENV === 'production') {
-registerServiceWorker();
-// }
+//  WORKBOX throws warning in watch mode and constantly refreshes
+if (process.env.NODE_ENV === 'production') {
+  registerServiceWorker();
+}

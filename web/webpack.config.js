@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const appDirectory = path.resolve(__dirname, '../');
 
@@ -67,20 +68,20 @@ const plugins = [
       {from: './public/logo512.png', to: ''},
     ],
   }),
-  new WorkboxWebpackPlugin.InjectManifest({
-    swSrc: './service-worker.js',
-    swDest: './sw.js',
+  new Dotenv({
+    path: path.resolve(appDirectory, '.env'),
+    systemvars: true,
   }),
 ];
 
-// if (process.env.NODE_ENV === 'production') {
-//   plugins.push(
-//     new WorkboxWebpackPlugin.InjectManifest({
-//       swSrc: './service-worker.js',
-//       swDest: './sw.js',
-//     }),
-//   );
-// }
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: './service-worker.js',
+      swDest: './sw.js',
+    }),
+  );
+}
 
 module.exports = {
   entry: {
