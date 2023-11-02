@@ -56,33 +56,6 @@ const jsonLoaderConfiguration = {
   },
 }
 
-const plugins = [
-  new HtmlWebpackPlugin({
-    template: path.join(appDirectory, "web/index.html"),
-  }),
-  new CopyPlugin({
-    patterns: [
-      { from: "./public/favicon.ico", to: "" },
-      { from: "./public/manifest.json", to: "" },
-      { from: "./public/logo192.png", to: "" },
-      { from: "./public/logo512.png", to: "" },
-    ],
-  }),
-  new Dotenv({
-    path: path.resolve(appDirectory, ".env"),
-    systemvars: true,
-  }),
-]
-
-if (process.env.NODE_ENV === "production") {
-  plugins.push(
-    new WorkboxWebpackPlugin.InjectManifest({
-      swSrc: "./service-worker.js",
-      swDest: "./sw.js",
-    }),
-  )
-}
-
 module.exports = {
   entry: {
     app: path.join(appDirectory, "web/index.web.js"),
@@ -110,5 +83,25 @@ module.exports = {
       jsonLoaderConfiguration,
     ],
   },
-  plugins,
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(appDirectory, "web/index.html"),
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "./public/favicon.ico", to: "" },
+        { from: "./public/manifest.json", to: "" },
+        { from: "./public/logo192.png", to: "" },
+        { from: "./public/logo512.png", to: "" },
+      ],
+    }),
+    new Dotenv({
+      path: path.resolve(appDirectory, ".env"),
+      systemvars: true,
+    }),
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: "./web/service-worker.js",
+      swDest: "./sw.js",
+    }),
+  ],
 }
