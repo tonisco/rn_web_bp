@@ -1,1 +1,1 @@
-declare const self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope
