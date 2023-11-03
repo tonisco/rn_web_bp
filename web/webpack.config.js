@@ -33,9 +33,9 @@ const babelLoaderConfiguration = {
 const imageLoaderConfiguration = {
   test: /\.(gif|jpe?g|png)$/,
   include: [
-    path.resolve(appDirectory, "web/favicon.ico"),
-    path.resolve(appDirectory, "web/logo512.png"),
-    path.resolve(appDirectory, "web/logo192.png"),
+    path.resolve(appDirectory, "public/favicon.ico"),
+    path.resolve(appDirectory, "public/logo512.png"),
+    path.resolve(appDirectory, "public/logo192.png"),
   ],
   use: {
     loader: "url-loader",
